@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-webapp
+spec:
+  replicas: 2                     # this is number of pods
+  selector:
+    matchLabels:
+      app: flask-webapp
+  template:
+    metadata:
+      labels:
+        app: flask-webapp
+    spec:
+      containers:
+      - name: webapp
+        image: gcr.io/hw2-cloud-infrastructure/webapp:tag
+        imagePullPolicy: Always
+        resources:
+          limits:
+            memory: 64Mi
+            cpu: "250m"
+          requests:
+            memory: 32Mi
+            cpu: "200m"
+        # specify the container port
+        ports:
+        - containerPort: 5000
+
+    # -----------------------------------------------------------*
+    # If your image is hosted in a private docker hub repo, 
+    # you need to specify an image pull secret in the spec field.
+    # -----------------------------------------------------------*
+    # spec:
+    #   containers:
+    #   - name: app
+    #     image: pseudo/your-image:latest
+    #   imagePullSecrets:
+    #   - name: dockerhub-credential
+    # -----------------------------------------------------------*
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: flask-webapp-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: flask-webapp
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80             
+      targetPort: 5000
+
+    - name: https
+      protocol: TCP
+      port: 443            
+      targetPort: 5000
