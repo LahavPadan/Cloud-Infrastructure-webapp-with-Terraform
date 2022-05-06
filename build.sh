@@ -5,7 +5,8 @@
 #     exit
 # fi
 # export TF_VAR_CONFIG = "$1" 
-export TF_VAR_CONFIG = "dev" 
+
+export TF_VAR_CONFIG="dev" 
 
 
 gcloud components install beta
@@ -66,9 +67,9 @@ echo -e "\033[1;42m [STEP 4] Create Webserver DockerImage and Upload to gcr.io \
 
 
 gcloud auth configure-docker gcr.io
-export TF_VAR_WS_DOCKERIMAGE="gcr.io/${PROJECT_ID}/webapp:tag"
-docker build -t $TF_VAR_WS_DOCKERIMAGE ./FlaskApp/
-docker push $TF_VAR_WS_DOCKERIMAGE
+export WS_DOCKERIMAGE="gcr.io/${PROJECT_ID}/webapp:tag"
+docker build -t $WS_DOCKERIMAGE ./FlaskApp/
+docker push $WS_DOCKERIMAGE
 
 export $(grep -v '^#' Infrastructure/database.env | xargs)
 
@@ -81,9 +82,6 @@ export TF_VAR_REGION="us-central1"
 terraform -chdir=Infrastructure/ init --upgrade
 
 # Plan and deploy
-terraform -chdir=Infrastructure/ apply -var-file "${TF_VAR_CONFIG}.tfvars"
-
-echo -e "\033[1;42m [STEP 2] Configure Components \033[0m"
 
 gcloud compute addresses create db-ip --region $TF_VAR_REGION
 
@@ -93,10 +91,18 @@ export POSTGRES_PASSWORD="secret password"
 export POSTGRES_IP=$(gcloud compute addresses describe db-ip --region ${TF_VAR_REGION})
 export POSTGRES_PORT=5432 # default postgres port
 
+terraform -chdir=Infrastructure/ apply -var-file "${TF_VAR_CONFIG}.tfvars"
+
+echo -e "\033[1;42m [STEP 2] Configure Components \033[0m"
+
+
+
+
+
 # Pass deployment to GKE cluster
-# gcloud container clusters get-credentials node-demo-k8s --region $TF_VAR_REGION
-envsubst < Infrastructure/modules/GKE_cluster/deployment.yaml | kubectl apply -f -
+gcloud container clusters get-credentials node-demo-k8s --region $TF_VAR_REGION
+envsubst < Infrastructure/modules/GKE_cluster/app_deploy.yaml | kubectl apply -f -
 
-
-
-
+kubectl apply -f Infrastructure/modules/GKE_cluster/pv_deploy.yaml
+envsubst < Infrastructure/modules/GKE_cluster/postgres_deploy.yaml | kubectl apply -f -
+envsubst < Infrastructure/modules/GKE_cluster/postgres_service_deploy.yaml | kubectl apply -f -

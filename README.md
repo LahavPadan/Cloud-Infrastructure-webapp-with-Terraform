@@ -27,7 +27,9 @@ https://haseebmajid.dev/blog/simple-app-flask-sqlalchemy-and-docker
 [gcp docs](https://cloud.google.com/kubernetes-engine/docs/tutorials/configuring-domain-name-static-ip#gcloud)
 
 ### setting up GKE
-https://www.how-hard-can-it.be/when-gke-tells-your-terraform-service-account-to-go-away/
+[google docs](https://cloud.google.com/architecture/deploying-highly-available-postgresql-with-gke)
+
+[troubleshooting](https://www.how-hard-can-it.be/when-gke-tells-your-terraform-service-account-to-go-away/)
 
 ### Deploy the webapp
 https://blog.devgenius.io/how-to-provision-configure-deploy-to-google-cloud-platform-97dbbe36fcde

@@ -8,16 +8,16 @@ variable "PROJECT_ID" {
   type        = string
 }
 
-variable "POSTGRES_PASSWORD"{
-  description = "Password for the postgreSQL database"
-  type        = string
-  sensitive   = true
-}
+# variable "POSTGRES_PASSWORD"{
+#   description = "Password for the postgreSQL database"
+#   type        = string
+#   sensitive   = true
+# }
 
-variable "WS_DOCKERIMAGE"{
-  description = "Dockerimage path the webserver container"
-  type        = string
-}
+# variable "WS_DOCKERIMAGE"{
+#   description = "Dockerimage path the webserver container"
+#   type        = string
+# }
 
 variable "REGION"{
   description = "Region in which to deploy"
