@@ -3,9 +3,9 @@ variable "project_id" {
     type        = string
 }
 
-variable "zone" {
+variable "region" {
     type        = string
-    description = "Zone for GKE cluster"
+    description = "Region for GKE cluster"
 }
 
 

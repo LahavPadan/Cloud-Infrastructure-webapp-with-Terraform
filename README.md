@@ -1,47 +1,35 @@
-# Work Process in Linux machine
+# Recommended to work in a Linux machine
 
 ## To Run: 
-- Install Terraform, gcloud CLI, docker and kubectl
+- Install Terraform, gcloud CLI, docker and kubectl, (in Windows, minGW is also needed for envsubst)
 - run build.sh 
 
 
-Setting up terraform 
-https://medium.com/google-cloud/terraform-credentials-setup-in-gcp-c81c8ebaff5d
-https://blog.gruntwork.io/a-comprehensive-guide-to-managing-secrets-in-your-terraform-code-1d586955ace1
+### Setting up terraform 
+[terraform-credentials-setup-in-gcp](https://medium.com/google-cloud/terraform-credentials-setup-in-gcp-c81c8ebaff5d)
+[comprehensive-guide-to-managing-secrets-in-your-terraform-code](https://blog.gruntwork.io/a-comprehensive-guide-to-managing-secrets-in-your-terraform-code-1d586955ace1)
+
+### Service account key:
+[creating-managing-service-account-keys](https://cloud.google.com/iam/docs/creating-managing-service-account-keys#iam-service-account-keys-create-gcloud)
 
 
-https://cloud.google.com/iam/docs/creating-managing-service-account-keys#iam-service-account-keys-create-gcloud
-service account key
+### Uploading webserver dockerimage to gcr.io
+[gcr tips](https://ahmet.im/blog/google-container-registry-tips/)
 
-- Problem: Cannot find a way to download the json key to my computer via gcloud
-
-
-Uploading webserver dockerimage to gcr.io
-https://ahmet.im/blog/google-container-registry-tips/
-
-
-Create variables for docker images
-
+### Create a flask web app && postgres dockerfile
 https://haseebmajid.dev/blog/simple-app-flask-sqlalchemy-and-docker
-create a flask web app && postgres dockerfile
+[blog creation walkthrough](https://www.digitalocean.com/community/tutorials/how-to-make-a-web-application-using-flask-in-python-3)
 
-https://runnable.com/docker/python/dockerize-your-flask-application
-dockerize the flask web app
+### Dockerize the flask web app
+[dockerize-your-flask-application](https://runnable.com/docker/python/dockerize-your-flask-application)
 
-https://github.com/mesmacosta/cloudsql-sqlserver-tooling
-https://medium.com/ci-t/automating-the-cloud-sql-triad-with-terraform-python-and-gcloud-2a17edfef3c4
-integrate postgres dockerfile into terraform infrastructure
+### Reserve IPs
+[gcp docs](https://cloud.google.com/kubernetes-engine/docs/tutorials/configuring-domain-name-static-ip#gcloud)
 
+### setting up GKE
+https://www.how-hard-can-it.be/when-gke-tells-your-terraform-service-account-to-go-away/
 
-Deploy the webapp
+### Deploy the webapp
 https://blog.devgenius.io/how-to-provision-configure-deploy-to-google-cloud-platform-97dbbe36fcde
-
-- Problem: Local-exec command in GKE_cluster/main.tf
-
-
-## Tried, but didn't work out:
-
-https://www.willianantunes.com/blog/2021/05/the-easiest-way-to-run-a-container-on-gce-with-terraform/
-use the webserver image to create a webserver instance in google's compute engine
-
+s
 

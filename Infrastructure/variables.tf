@@ -1,4 +1,4 @@
-variable "config" { # 'dev' OR 'prod'
+variable "CONFIG" { # 'dev' OR 'prod'
   description = "Defines seperate dev and prod infrastructre"
   type        = string
 }
@@ -19,8 +19,8 @@ variable "WS_DOCKERIMAGE"{
   type        = string
 }
 
-variable "dbInstance_region" {
-  description = "Region in which to deploy the instance group"
+variable "REGION"{
+  description = "Region in which to deploy"
   type        = string
 }
 

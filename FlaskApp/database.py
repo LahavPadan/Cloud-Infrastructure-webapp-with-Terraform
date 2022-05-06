@@ -1,10 +1,15 @@
-from .models import db
+from .schema import db
+from werkzeug.exceptions import abort
 
+def get_allPosts(model):
+    posts = model.query.all()
+    return [post.__dict__ for post in posts]
 
-def get_all(model):
-    data = model.query.all()
-    return data
-
+def get_post(model, id):
+    post = model.query.get(id)
+    if post is None:
+        abort(404)
+    return post.__dict__
 
 def add_instance(model, **kwargs):
     instance = model(**kwargs)

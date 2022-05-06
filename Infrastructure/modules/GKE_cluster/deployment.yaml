@@ -14,8 +14,20 @@ spec:
     spec:
       containers:
       - name: webapp
-        image: gcr.io/hw2-cloud-infrastructure/webapp:tag
+        image: $(TF_VAR_WS_DOCKERIMAGE)
         imagePullPolicy: Always
+        env:
+        - name: POSTGRES_DB
+          value: $(POSTGRES_DB)
+        - name: POSTGRES_USER
+          value: $(POSTGRES_USER)
+        - name: POSTGRES_PASSWORD
+          value: $(POSTGRES_PASSWORD)
+        - name: POSTGRES_IP
+          value: $(POSTGRES_IP)
+        - name: POSTGRES_PORT
+          value: $(POSTGRES_PORT)
+
         resources:
           limits:
             memory: 64Mi
@@ -27,18 +39,8 @@ spec:
         ports:
         - containerPort: 5000
 
-    # -----------------------------------------------------------*
-    # If your image is hosted in a private docker hub repo, 
-    # you need to specify an image pull secret in the spec field.
-    # -----------------------------------------------------------*
-    # spec:
-    #   containers:
-    #   - name: app
-    #     image: pseudo/your-image:latest
-    #   imagePullSecrets:
-    #   - name: dockerhub-credential
-    # -----------------------------------------------------------*
 ---
+
 apiVersion: v1
 kind: Service
 metadata:
@@ -57,3 +59,6 @@ spec:
       protocol: TCP
       port: 443            
       targetPort: 5000
+
+---
+

@@ -23,6 +23,9 @@ apk add postgresql-dev &&\
  python3 -m pip install -r requirements.txt --no-cache-dir 
 # apk --purge del .build-deps
 
+# telling Flask where to find the application
+ENV FLASK_APP=app 
+
 # copy every content from the local file to the image
 COPY . /app
 
