@@ -1,10 +1,9 @@
 from flask import render_template, request, url_for, flash, redirect 
-from . import create_app, database
-from .schema import Posts
+from init import create_app, database, Posts
 
 ################################# Entry point in the dockerfile ########################################## 
 
-app = create_app(debug=True)
+app = create_app()
 app.config['SECRET_KEY'] = 'your secret key'
 
 

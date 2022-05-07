@@ -1,11 +1,12 @@
+---
 apiVersion: v1
 kind: Service
 metadata:
   name: postgres
 spec:
   ports:
-    - port: 5432
+    - port: $POSTGRES_PORT
   selector:
     app: postgres
   type: LoadBalancer
-  loadBalancerIP: $(POSTGRES_IP)
+  loadBalancerIP: $POSTGRES_IP

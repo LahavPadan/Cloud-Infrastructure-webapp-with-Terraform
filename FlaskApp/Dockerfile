@@ -1,7 +1,3 @@
-# mkdir flask_app && cd flask_app
-# docker image build -t flask_docker .
-
-
 # start by pulling the python image
 FROM python:3.8-alpine
 
@@ -25,7 +21,7 @@ apk add postgresql-dev &&\
 
 # telling Flask where to find the application
 ENV FLASK_APP=app
-ENV FLASK_ENV=development 
+ENV FLASK_ENV=development
 
 # copy every content from the local file to the image
 COPY . /app

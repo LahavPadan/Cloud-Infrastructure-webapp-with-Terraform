@@ -33,5 +33,5 @@ https://haseebmajid.dev/blog/simple-app-flask-sqlalchemy-and-docker
 
 ### Deploy the webapp
 https://blog.devgenius.io/how-to-provision-configure-deploy-to-google-cloud-platform-97dbbe36fcde
-s
+
 

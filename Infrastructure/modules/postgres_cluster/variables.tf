@@ -8,6 +8,11 @@ variable "region" {
     description = "Region for GKE cluster"
 }
 
+variable "zones" {
+    type        = list
+    description = "Zones (in the above region) for GKE cluster"
+}
+
 
 variable "clustername" {
     description = "GKE cluster name"
@@ -20,11 +25,3 @@ variable "num_instances" {
     type        = number
     description = "Number of instances in instance group"
 }
-
-
-
-variable "preemptible" {
-    type = bool
-}
-
-

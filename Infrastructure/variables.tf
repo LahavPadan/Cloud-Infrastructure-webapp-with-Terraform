@@ -24,6 +24,13 @@ variable "REGION"{
   type        = string
 }
 
+
+variable "zones" {
+    type        = list
+    description = "Zones (in the above region) for GKE cluster"
+}
+
+
 variable "instanceGroup_num_instances" {
   type        = number
   description = "Number of instances in instance group"

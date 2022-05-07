@@ -7,12 +7,21 @@
 #   dbRoot_password   = var.POSTGRES_PASSWORD
 # }
 
-
 module "webapp"{
-  source = "./modules/GKE_cluster"
+  source = "./modules/app_cluster"
   project_id  = var.PROJECT_ID
   clustername = "hw2.${var.CONFIG}.webapp_cluster"
   num_instances = var.instanceGroup_num_instances
   preemptible = var.preemptible
   region = var.REGION
+  zones = var.zones
+}
+
+module "postgreSQL"{
+  source = "./modules/postgres_cluster"
+  project_id  = var.PROJECT_ID
+  clustername = "hw2.${var.CONFIG}.postgres"
+  num_instances = var.instanceGroup_num_instances
+  region = var.REGION
+  zones = var.zones
 }

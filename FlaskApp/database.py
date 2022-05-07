@@ -1,4 +1,4 @@
-from .schema import db
+from init import db
 from werkzeug.exceptions import abort
 
 def get_allPosts(model):
