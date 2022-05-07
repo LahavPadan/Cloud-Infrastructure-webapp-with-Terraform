@@ -11,7 +11,7 @@ export TF_VAR_CONFIG="dev"
 
 gcloud components install beta
 
-PROJECT_ID=cloud-infrastructure-hw2
+PROJECT_ID=cloud-infrastructure-hw2-v2
 BILLING_ACCOUND_ID=$( gcloud beta billing accounts list --limit=1 | grep -o -E '([A-Z0-9]{6})-([A-Z0-9]{6})-([A-Z0-9]{6})' )
 TERRAFORM_MEMBER=serviceAccount:terraform@${PROJECT_ID}.iam.gserviceaccount.com
 
@@ -39,9 +39,13 @@ gcloud services enable sqladmin.googleapis.com
 echo -e "\033[1;42m [STEP 3] Create a Terraform Service Account \033[0m"
 
 gcloud iam service-accounts create terraform  --display-name "Terraform account" 2>/dev/null
+gcloud projects add-iam-policy-binding $PROJECT_ID --member=$TERRAFORM_MEMBER --role="roles/iam.serviceAccountUser"
+gcloud projects add-iam-policy-binding $PROJECT_ID --member=$TERRAFORM_MEMBER --role="roles/compute.networkAdmin"
 gcloud projects add-iam-policy-binding $PROJECT_ID --member=$TERRAFORM_MEMBER --role="roles/cloudsql.admin"
 gcloud projects add-iam-policy-binding $PROJECT_ID --member=$TERRAFORM_MEMBER --role="roles/viewer"
 gcloud projects add-iam-policy-binding $PROJECT_ID --member=$TERRAFORM_MEMBER --role="roles/container.admin"
+gcloud projects add-iam-policy-binding $PROJECT_ID --member=$TERRAFORM_MEMBER --role="roles/compute.networkUser"
+gcloud projects add-iam-policy-binding $PROJECT_ID --member=$TERRAFORM_MEMBER --role="roles/container.clusterAdmin"
 
 
 gcloud iam service-accounts keys create ~/.config/gcloud/$PROJECT_ID.json --iam-account terraform@${PROJECT_ID}.iam.gserviceaccount.com
