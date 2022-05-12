@@ -1,5 +1,8 @@
 ![output](https://user-images.githubusercontent.com/64014604/168144375-829ad624-8f5f-4a8f-b4a0-e0ed58160f92.gif)
 
+# About this project:
+Automated deployment on Google-Cloud's Kubernetes-infrastructure of a Flask blog application. Configured using Terraform, an Infrastructure-As-Code tool.  
+
 **_NOTE:_**  Linux enviroment is needed.
 
 ## To Run: 
