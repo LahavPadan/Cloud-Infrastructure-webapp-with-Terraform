@@ -1,10 +1,10 @@
-https://user-images.githubusercontent.com/64014604/168131861-68f39ea2-8bd7-4a51-94a1-9ae1185c82b4.mp4
+![output](https://user-images.githubusercontent.com/64014604/168144375-829ad624-8f5f-4a8f-b4a0-e0ed58160f92.gif)
 
-### Run in Linux enviroment
+**_NOTE:_**  Linux enviroment is needed.
 
 ## To Run: 
-1. Install Terraform, gcloud CLI, Docker and Kubectl, (in Windows, minGW is also needed for envsubst)
-2. run build.sh [either dev/prod]
+1. ``` Install Terraform, gcloud CLI, Docker and Kubectl, (in Windows, minGW is also needed for envsubst) ```
+2. ``` ./build.sh [either dev/prod] ```
 
 ## Project Setup
 ```
@@ -41,8 +41,8 @@ root-folder-of-your-project/ <--- Main project
 ## Useful links
 
 ### Setting up terraform 
-[_terraform-credentials-setup-in-gcp_](https://medium.com/google-cloud/terraform-credentials-setup-in-gcp-c81c8ebaff5d)
-[_guide-to-managing-secrets-in-your-terraform-code_](https://blog.gruntwork.io/a-comprehensive-guide-to-managing-secrets-in-your-terraform-code-1d586955ace1)
+- [_terraform-credentials-setup-in-gcp_](https://medium.com/google-cloud/terraform-credentials-setup-in-gcp-c81c8ebaff5d)
+- [_guide-to-managing-secrets-in-your-terraform-code_](https://blog.gruntwork.io/a-comprehensive-guide-to-managing-secrets-in-your-terraform-code-1d586955ace1)
 
 ### Service account key:
 - [_managing service account keys_](https://cloud.google.com/iam/docs/creating-managing-service-account-keys#iam-service-account-keys-create-gcloud)
