@@ -1,17 +1,18 @@
 #!/bin/sh
 
-# if [[ ! ( -n "$1" && ( "$1" == "dev" || "$1" == "prod") )]]; then
-#     echo "Invalid Argument. Please supply 'dev'/'prod' as your script argument"
-#     exit
-# fi
-# export TF_VAR_CONFIG = "$1" 
+if [[ ! ( -n "$1" && ( "$1" == "dev" || "$1" == "prod") )]]; then
+    echo "Invalid Argument. Please supply 'dev'/'prod' as your script argument"
+    exit
+fi
 
-export TF_VAR_CONFIG="dev" 
+
+export CONFIG="$1" 
+export TF_VAR_CONFIG="$1" 
 
 
 gcloud components install beta
 
-PROJECT_ID=cloud-infrastructure-hw2-v2
+PROJECT_ID=cloud-infrastructure-hw2-v8
 BILLING_ACCOUND_ID=$( gcloud beta billing accounts list --limit=1 | grep -o -E '([A-Z0-9]{6})-([A-Z0-9]{6})-([A-Z0-9]{6})' )
 TERRAFORM_MEMBER=serviceAccount:terraform@${PROJECT_ID}.iam.gserviceaccount.com
 
@@ -39,13 +40,16 @@ gcloud services enable sqladmin.googleapis.com
 echo -e "\033[1;42m [STEP 3] Create a Terraform Service Account \033[0m"
 
 gcloud iam service-accounts create terraform  --display-name "Terraform account" 2>/dev/null
-gcloud projects add-iam-policy-binding $PROJECT_ID --member=$TERRAFORM_MEMBER --role="roles/iam.serviceAccountUser"
-gcloud projects add-iam-policy-binding $PROJECT_ID --member=$TERRAFORM_MEMBER --role="roles/compute.networkAdmin"
-gcloud projects add-iam-policy-binding $PROJECT_ID --member=$TERRAFORM_MEMBER --role="roles/cloudsql.admin"
-gcloud projects add-iam-policy-binding $PROJECT_ID --member=$TERRAFORM_MEMBER --role="roles/viewer"
-gcloud projects add-iam-policy-binding $PROJECT_ID --member=$TERRAFORM_MEMBER --role="roles/container.admin"
-gcloud projects add-iam-policy-binding $PROJECT_ID --member=$TERRAFORM_MEMBER --role="roles/compute.networkUser"
-gcloud projects add-iam-policy-binding $PROJECT_ID --member=$TERRAFORM_MEMBER --role="roles/container.clusterAdmin"
+gcloud projects add-iam-policy-binding $PROJECT_ID --member=$TERRAFORM_MEMBER --role="roles/owner"
+# gcloud projects add-iam-policy-binding $PROJECT_ID --member=$TERRAFORM_MEMBER --role="roles/iam.serviceAccountUser"
+# gcloud projects add-iam-policy-binding $PROJECT_ID --member=$TERRAFORM_MEMBER --role="roles/compute.networkAdmin"
+# gcloud projects add-iam-policy-binding $PROJECT_ID --member=$TERRAFORM_MEMBER --role="roles/cloudsql.admin"
+# gcloud projects add-iam-policy-binding $PROJECT_ID --member=$TERRAFORM_MEMBER --role="roles/viewer"
+# gcloud projects add-iam-policy-binding $PROJECT_ID --member=$TERRAFORM_MEMBER --role="roles/container.admin"
+# gcloud projects add-iam-policy-binding $PROJECT_ID --member=$TERRAFORM_MEMBER --role="roles/compute.networkUser"
+# gcloud projects add-iam-policy-binding $PROJECT_ID --member=$TERRAFORM_MEMBER --role="roles/container.clusterAdmin"
+# gcloud projects add-iam-policy-binding $PROJECT_ID --member=$TERRAFORM_MEMBER --role="roles/container.developer"
+# gcloud projects add-iam-policy-binding $PROJECT_ID --member=$TERRAFORM_MEMBER --role="roles/compute.securityAdmin"
 
 
 gcloud iam service-accounts keys create ~/.config/gcloud/$PROJECT_ID.json --iam-account terraform@${PROJECT_ID}.iam.gserviceaccount.com
@@ -60,12 +64,9 @@ export TF_VAR_REGION="us-central1"
 
 # Plan and deploy
 terraform -chdir=Infrastructure/ init --upgrade
-terraform -chdir=Infrastructure/ apply -var-file "${TF_VAR_CONFIG}.tfvars"
-
-
+terraform -chdir=Infrastructure/ apply -var-file "${TF_VAR_CONFIG}.tfvars" -auto-approve
 
 gcloud compute addresses create db-ip --region $TF_VAR_REGION
-
 
 export POSTGRES_DB='posts'
 export POSTGRES_USER='postgres'
@@ -85,13 +86,19 @@ docker push $WS_DOCKERIMAGE
 echo -e "\033[1;42m [STEP 6] Configure Components \033[0m"
 
 # Pass deployment to GKE cluster
-gcloud container clusters get-credentials node-demo-k8s --region $TF_VAR_REGION
 
-envsubst < Infrastructure/modules/app_cluster/app_deploy.yaml | kubectl apply -f -
+# create database
+gcloud container clusters get-credentials "${CONFIG}-postgres-k8s" --region $TF_VAR_REGION
+envsubst < Infrastructure/deployments/pv_deploy.yaml | kubectl apply -f -
+cat `envsubst < Infrastructure/deployments/pv_deploy.yaml`
+envsubst < Infrastructure/deployments/postgres_deploy.yaml | kubectl apply -f -
+envsubst < Infrastructure/deployments/postgres_service_deploy.yaml | kubectl apply -f -
 
-gcloud container clusters get-credentials postgres-demo-k8s --region $TF_VAR_REGION
-kubectl apply -f Infrastructure/modules/postgres_cluster/pv_deploy.yaml
-envsubst < Infrastructure/modules/postgres_cluster/postgres_deploy.yaml | kubectl apply -f -
-envsubst < Infrastructure/modules/postgres_cluster/postgres_service_deploy.yaml | kubectl apply -f -
+# create app
+gcloud container clusters get-credentials "${CONFIG}-webapp-k8s" --region $TF_VAR_REGION
+
+envsubst < Infrastructure/deployments/app_deploy.yaml | kubectl apply -f -
+
+kubectl get services  
 
 

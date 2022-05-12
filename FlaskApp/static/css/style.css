@@ -13,7 +13,7 @@
     --bg: var(--gray0);
     --bg-nav: linear-gradient(to right, var(--gray1), var(--gray3));
     --bg-dropdown: var(--gray0);
-    --text: var(--gray6);
+    --text_color: var(--gray6);
     --border-color: var(--blue);
 
     font-size: 18px;
@@ -26,7 +26,7 @@ body {
     line-height: 1.5;
     text-align: left;
     
-    color: var(--text);
+    color: var(--text_color);
     background: var(--bg);
     transition: background 500ms ease-in-out, color 1000ms ease-in-out;
 }       
@@ -47,7 +47,16 @@ header{
 
 
 h1 {
-    font-size: 300%;
+    color: var(--blue);
+    font-weight: bold;
+    font-size: 3em;
+    line-height: 65px;
+}
+
+h2 {
+    color: var(--blue);
+    font-weight: bold;
+    font-size: 2em;
     line-height: 65px;
 }
 
@@ -66,7 +75,7 @@ a{
     height: 70px;
     width: 100%;
     background: var(--bg-nav);
-    color: var(--text);
+    color: var(--text_color);
 }
 
 .navbar-nav{
@@ -76,10 +85,86 @@ a{
     height: 100%;
 }
 
-  .nav-link {
+.nav-link {
     display: flex;
     align-items: center;
     height: 5rem;
-    color: var(--text);
+    color: var(--text_color);
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    height: 100%;
+    width: 100%;
+    background-color: #fff;
+    padding: 25px 30px;
+    border-radius: 5px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.15);
+    transition: all 0.2s;
+}
+
+.container .data-section{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 20px 0 12px 0;
+}
+
+form .input-box span .data{
+    font-weight: bold;
+    font-size: 1.5em;
+    display: block;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.container .data-section .input-box{
+    margin-bottom: 15px;
+    width: calc(100% / 2 - 20px);
+}
+
+.container .data-section .input-box input{
+    font-family: inherit;
+    font-size: inherit;
+    height: 45px;
+    width: 100%;
+    outline: none;
+    border-radius: 5px;
+    padding-left: 15px;
+    border: 1px solid #ccc;
+    border-bottom-width: 2px;
+    transition: all 0.3s ease;
+}
+.container .data-section .input-box textarea {
+    font-family: inherit;
+    font-size: inherit;
+
+    resize: vertical;
+    padding: 0.5em;
+    line-height: 1.4;
+
+    outline: none;
+    border-radius: 5px;
+    padding-left: 15px;
+    border: 1px solid #ccc;
+    border-bottom-width: 2px;
+}
+
+.container form .button input{
+    font-family: inherit;
+    font-weight: bold;
+    font-size: 1.5em;
+
+    height: 100%;
+    width: 100%;
+    border-radius: 5px;
+    border: none;
+    color: #fff;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: var(--gray3);
   }
-  

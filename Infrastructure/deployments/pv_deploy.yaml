@@ -2,7 +2,7 @@
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
-  name: regionalpd-storageclass
+  name: regionalpd-storageclass-$CONFIG
 provisioner: kubernetes.io/gce-pd
 parameters:
   type: pd-standard
@@ -17,9 +17,9 @@ allowedTopologies:
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: postgresql-pv
+  name: postgresql-pv-$CONFIG
 spec:
-  storageClassName: regionalpd-storageclass
+  storageClassName: regionalpd-storageclass-$CONFIG
   accessModes:
     - ReadWriteOnce
   resources:

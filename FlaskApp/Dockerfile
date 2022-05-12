@@ -21,7 +21,6 @@ apk add postgresql-dev &&\
 
 # telling Flask where to find the application
 ENV FLASK_APP=app
-ENV FLASK_ENV=development
 
 # copy every content from the local file to the image
 COPY . /app

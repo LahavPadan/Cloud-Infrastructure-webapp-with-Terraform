@@ -8,16 +8,6 @@ variable "PROJECT_ID" {
   type        = string
 }
 
-# variable "POSTGRES_PASSWORD"{
-#   description = "Password for the postgreSQL database"
-#   type        = string
-#   sensitive   = true
-# }
-
-# variable "WS_DOCKERIMAGE"{
-#   description = "Dockerimage path the webserver container"
-#   type        = string
-# }
 
 variable "REGION"{
   description = "Region in which to deploy"
@@ -36,6 +26,17 @@ variable "instanceGroup_num_instances" {
   description = "Number of instances in instance group"
 }
 
+
 variable "preemptible" {
   type = bool
 }
+
+variable "app_min_cpu_instances"{ type = number }
+variable "app_max_cpu_instances"{ type = number }
+variable "app_min_memory_instances"{ type = number }
+variable "app_max_memory_instances"{ type = number }
+variable "postgres_min_cpu_instances"{ type = number }
+variable "postgres_max_cpu_instances"{ type = number }
+variable "postgres_min_memory_instances"{ type = number }
+variable "postgres_max_memory_instances"{ type = number }
+

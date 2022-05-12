@@ -2,16 +2,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: flask-webapp
+  name: flask-webapp-$CONFIG
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: flask-webapp
+      app: flask-webapp-$CONFIG
   template:
     metadata:
       labels:
-        app: flask-webapp
+        app: flask-webapp-$CONFIG
     spec:
       containers:
         - name: webapp
@@ -30,10 +30,10 @@ spec:
               value: "5432"
           resources:
             limits:
-              memory: 64Mi
+              memory: 1Gi
               cpu: "250m"
             requests:
-              memory: 32Mi
+              memory: 256Mi
               cpu: "200m"
           # specify the container port
           ports:
@@ -42,11 +42,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: flask-webapp-service
+  name: service-flask-webapp-$CONFIG
 spec:
   type: LoadBalancer
   selector:
-    app: flask-webapp
+    app: flask-webapp-$CONFIG
   ports:
     - name: http
       protocol: TCP
