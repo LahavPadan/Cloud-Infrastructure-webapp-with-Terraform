@@ -1,6 +1,6 @@
 ![output](https://user-images.githubusercontent.com/64014604/168144375-829ad624-8f5f-4a8f-b4a0-e0ed58160f92.gif)
 
-# About this project:
+# About This Project:
 Flask blog application on Google-Cloud's Kubernetes-infrastructure. Configured using Terraform, an Infrastructure-As-Code tool.  
 
 ## To Run:
