@@ -12,7 +12,7 @@ export TF_VAR_CONFIG="$1"
 
 gcloud components install beta
 
-PROJECT_ID=cloud-infrastructure-hw2-v8
+PROJECT_ID=cloud-infrastructure-hw2-v9
 BILLING_ACCOUND_ID=$( gcloud beta billing accounts list --limit=1 | grep -o -E '([A-Z0-9]{6})-([A-Z0-9]{6})-([A-Z0-9]{6})' )
 TERRAFORM_MEMBER=serviceAccount:terraform@${PROJECT_ID}.iam.gserviceaccount.com
 
