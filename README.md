@@ -1,4 +1,4 @@
-![](showcase.mp4)
+https://user-images.githubusercontent.com/64014604/168131861-68f39ea2-8bd7-4a51-94a1-9ae1185c82b4.mp4
 
 ### Run in Linux enviroment
 
@@ -7,7 +7,7 @@
 2. run build.sh [either dev/prod]
 
 ## Project Setup
-
+```
 root-folder-of-your-project/ <--- Main project
 │
 ├── build.sh <--- Automated script to run everything
@@ -37,7 +37,7 @@ root-folder-of-your-project/ <--- Main project
 │           
 ├── FlaskApp/  <--- The flask webapp
     └── ......
-
+```
 ## Useful links
 
 ### Setting up terraform 
